@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>V-for Test</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(book, index) in filterBooks">
+                {{ index }} - {{ book.name }}
+            </li>
+        </ul>
+        <br>
+        <p>-----------------------------华丽的分割线-----------------------------</p>
+        <ul>
+            <template v-for="(book, index) in sortedBooks">
+                <li>序号：{{ index }}</li>
+                <li>书名：{{ book.name }}</li>
+                <li>作者：{{ book.author }}</li>
+            </template>
+        </ul>
+        <br>
+        <p>-----------------------------华丽的分割线-----------------------------</p>
+        <ul>
+            <li v-for="(value, key, index) in user">
+                {{ index }} - {{ key }} : {{ value }}
+            </li>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                books: [
+                    {name: '《Vue.js实战》', author: '梁灏'},
+                    {name: '《JavaScript语言精辟》', author: 'Douglas Crockford'},
+                    {name: '《JavaScript高级程序设计》', author: 'Nicholas C.Zakas'}
+                ],
+                user: {
+                    name: 'Aresn',
+                    gender: '男',
+                    age: 26
+                }
+            },
+            computed: {
+                filterBooks: function () {
+                    return this.books.filter(function (book) {
+                        return book.name.match(/JavaScript/);
+                    })
+                },
+                sortedBooks: function () {
+                    return this.books.sort(function (a, b) {
+                        return a.name.length < b.name.length;
+                    });
+                }
+            }
+        });
+        app.books.push({
+            name: '《CSS揭秘》',
+            author: '[希] Lea Verou'
+        });
+        //app.books = app.books.filter(function (item) {
+        //    return item.name.match(/JavaScript/);
+        //})
+    </script>
+</body>
+</html>

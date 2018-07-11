@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Directives Test</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="show">这是一段文本</p>
+        <a v-bind:href="url">链接</a>
+        <button v-on:click="handleClose">点击隐藏/显示1</button>
+        <button v-on:click="show = false">点击隐藏1</button>
+        <br>
+        <p>-----------------------------华丽的分割线----------------------------------</p>
+        <br>
+        // 语法糖
+        <a :href="url">链接</a>
+        <button @click="handleClose">点击隐藏/显示2</button>
+        <button @click="show = false">点击隐藏2</button>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                url: 'https://www.github.com'
+            },
+            methods: {
+                init: function(text){
+                  console.log(text);
+                },
+                handleClose: function () {
+                    if(this.show){
+                        this.close();
+                    }else{
+                        this.open();
+                    }
+                },
+                close: function () {
+                    this.show = false;
+                },
+                open: function () {
+                    this.show = true;
+                }
+            },
+            mounted: function () {
+                this.init('在初始化时调用');
+            }
+        });
+        // 在Vue实例外部调用
+        app.init('通过外部调用');
+    </script>
+</body>
+</html>
